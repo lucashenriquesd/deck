@@ -1,5 +1,6 @@
 import styles from "./card.module.css";
 import { RankType, SuitType, ColorType, SealType } from "@/types";
+import CardModel from "./cardModel";
 import RankAndSuit from "@/components/molecules/RankAndSuit";
 
 type CardProps = {
@@ -10,20 +11,22 @@ type CardProps = {
 };
 
 export default function Card(props: CardProps) {
-  console.log(`Card: ${props.color} ${props.rank} of ${props.suit}`);
-  
-  const defaultSuitColor = ["diamonds", "hearts"].includes(props.suit)
-    ? "red"
-    : "black";
+  const cardObject = new CardModel(props.rank, props.suit, props.color, props.seal);
+  console.log(`Card: ${JSON.stringify(cardObject.getCard())}`);
 
   return (
     <div className={styles.card}>
-      <div>
-        <RankAndSuit rank={props.rank} suit={props.suit} color={props.color || defaultSuitColor} />
-      </div>
-      <div>
-        <RankAndSuit upsideDown rank={props.rank} suit={props.suit} color={props.color || defaultSuitColor} />
-      </div>
+      <RankAndSuit
+        rank={props.rank}
+        suit={props.suit}
+        color={cardObject.getColor()}
+      />
+      <RankAndSuit
+        upsideDown
+        rank={props.rank}
+        suit={props.suit}
+        color={cardObject.getColor()}
+      />
     </div>
   );
 }
