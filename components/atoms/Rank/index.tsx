@@ -28,7 +28,7 @@ export default function Rank(props: RankProps) {
   };
 
   return (
-    <div className={styles.rank}>
+    <div>
       <span style={{ color: props.color}}>{rankLookup[props.rank] || props.rank}</span>
     </div>
   );
